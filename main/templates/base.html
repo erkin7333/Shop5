@@ -1,0 +1,64 @@
+{#{% load cart %}#}
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <button type="button" class="navbar-brand btn btn-outline-success ml-2"><a href="{% url 'main:index' %}"
+                                                                                   class="text-light">Home</a></button>
+        {#            <a class="btn btn-outline-success" href="{% url 'main:index' %}">Home</a>#}
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#id_main_menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="id_main_menu">
+            <ul class="navbar-nav w-100 d-flex justify-content-between ">
+                {% if user.is_authenticated %}
+                    <div class="btn-group mr-2">
+                        <button class="btn dropdown-toggle text-light" type="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Branches
+                        </button>
+                        <div class="dropdown-menu bg-light" id="#dropdown">
+                            <a href="" class="btn text-dark mt-1">BUKHARA</a>
+                            <a href="" class="btn text-dark mt-1">GIJDUVON</a>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                    <div class="btn-group mr-2">
+                        <button class="btn text-light btn-lg dropdown-toggle" type="submit"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Categories
+                        </button>
+                        <div class="dropdown-menu bg-light" id="#dropdown">
+                            <a href="{% url 'main:smartphone' %}"
+                               class="w-100 btn">SMARTPHONE</a>
+                            <a href="{% url 'main:notebook' %}"
+                               class="w-100 btn mt-1">NOTEBOOK</a>
+                            <a href="{% url 'main:televizor' %}" class="w-100 btn mt-1">TELEVIZOR</a>
+                            <a href="{% url 'main:konditsaner' %}" class="w-100 btn mt-1">KONDITSANER</a>
+                            <a href="{% url 'main:gaz' %}" class="w-100 btn mt-1">GAZ
+                                PLITA</a>
+                        </div>
+                    </div>
+
+                    <li class="nav-item mr-2">{% load cart %}
+                        <a href="{% url 'main_shop:cart' %}" class="nav-link btn btn-outline-success"><i
+                                class="bi bi-cart4 text-light fa-7x">{{ user|cart_filter }}</i></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link btn btn-outline-success" href="{% url 'accounts:logout' %}">Logout</a>
+                    </li>
+                    {% else %}{% csrf_token %}
+                    <li class="nav-item mr-2">
+                        <a class="nav-link btn btn-outline-success" href="{% url 'accounts:login' %}">Login</a>
+                    </li>
+                    <li class="nav-item mr-2">
+                        <a class="nav-link btn btn-outline-success" href="{% url 'accounts:register' %}">Sign Up</a>
+                    </li>
+                {% endif %}
+                </div>
+            </ul>
+        </div>
+    </div>
+</nav>
+

@@ -1,0 +1,67 @@
+{% extends 'form.html' %}
+{% load crispy_forms_tags %}
+{% load bootstrap_pagination %}
+
+
+{% block content %}
+    {% include 'base.html' %}
+
+
+    <div class="container mt-4">
+        <table class="table table-bordered table-hover table-striped">
+            <tbody>
+            <div class="row">
+                <div class="col-lg-4">
+                    <form action="{% url 'main_shop:cart' %}" method="post">
+                        <div class="card" style="width: 20rem;">
+                            {% csrf_token %}
+                            {{ form | crispy }}
+                            <button type="submit" class="btn btn-outline-success mt-2">Saqlash</button>
+                            <a href="{% url 'main_shop:all-delete' %}" class="btn btn-danger mt-2">Delete All</a>
+                                <h4 class="text-capitalize"><strong>Jami summa: {{ cart_total_sum }}:sum</strong></h4>
+                        </div>
+                    </form>
+                </div>
+                {% for row in carts %}
+                    {% if request.user.is_authenticated %}
+                        <div class="card-header-pills">
+                            <div class="card mr-4" style="width: 15rem;">
+                                <img src="/media/{{ row.images }}" class="img-thumbnail img-fluid" alt="...">
+                                <div class="card-body text-center" style="height: 15rem;">
+                                    <h5 class="card-title"><strong>Klient:{{ row.user }}</strong></h5>
+                                    <p class="card-text">Catedoriya:{{ row.card_category }}</p>
+                                    <p class="card-text">Brend nomi:{{ row.card_brand }}</p>
+                                    <p class="card-text">Mavzusi:{{ row.content }}</p>
+                                    <p class="card-text">Maxsulot rangi: {{ row.color }}</p>
+                                    <p class="card-text">Narxi:{{ row.price }}</p>
+                                </div>
+                                <a href="{% url 'main_shop:delete' row.id %}" class="btn btn-danger">Delete</a>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="row justify-content-center pt-2 pb-2">
+                <div class="pagination">
+                <span class="step-links">
+                    {% if page.has_previous %}
+{#                        <a href="?page=1" class="btn btn-outline-info">&laquo;Birinchi</a>#}
+                        <a href="?page={{ page.previous_page_number }}" class="btn btn-outline bg-primary">««</a>
+                    {% endif %}
+
+                    <span class="current text-light btn bg-primary">
+                        {{ page.number }}
+                    </span>
+
+                {% if page.has_next %}
+                    <a href="?page={{ page.next_page_number }}" class="btn btn-outline bg-primary"> »»</a>
+{#                    <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-info">Oxirgi&raquo;</a>#}
+                {% endif %}
+            </span>
+                </div>
+            </div>
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

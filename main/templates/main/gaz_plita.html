@@ -1,0 +1,59 @@
+{% extends 'form.html' %}
+
+
+{% block content %}
+    {% include 'base.html' %}
+    <div class="container">
+        <table class="table table-bordered table-hover table-striped">
+            <tbody>
+            <div class="row">
+                {% for row in object_gaz %}
+                    <div class="col-lg-4 mt-2">
+                        <div class="card-deck">
+                            <div class="card">
+                                <img src="{{ row.image.url }}" class="img-thumbnail" alt="">
+                                <div class="card-body">
+                                    <h5 class="card-title mr-2"><strong>Gaz plita nomi: {{ row.title }}</strong></h5>
+                                    <p class="card-text mr-2"><strong>Narxi: {{ row.price }}</strong></p>
+                                    <div class="d-flex justify-content-center">
+                                        <button type="button" class="btn btn-outline-success" data-toggle="modal"
+                                                data-target="#id{{ row.id }}">
+                                            Batafsil malumotlar
+                                        </button>
+                                    </div>
+                                    <div class="modal fade" id="id{{ row.id }}" tabindex="-1"
+                                         aria-labelledby="example#{{ row.id }}" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="example#{{ row.id }}"><strong>Konditsaner
+                                                        nomi: {{ row.title }}</strong></h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Hajmi: {{ row.size }}</p>
+                                                    <p>Panjara turi: {{ row.cage }}</p>
+                                                    <p>Energiya turi: {{ row.energy_type }}</p>
+                                                    <p>Sotuvda: {{ row.sales }}</p>
+                                                    <p>Rangi: {{ row.color }}</p>
+                                                    <p>Servis xizmat: {{ row.repair_service }}</p>
+                                                    <p>Kafolat mudati: {{ row.warranty }}</p>
+                                                    <p>Qo'shimacha malumotlari: {{ row.additional_data }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-outline-success">Xarid qilish</button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

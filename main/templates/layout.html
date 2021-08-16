@@ -1,0 +1,236 @@
+{% load static %}
+{% load crispy_forms_tags %}
+{% load brands %}
+{% load categoriy %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SHOP</title>
+    <link rel='shortcut icon' type='image/jpg' href='{% static 'icons/ww.jpg' %}'/>
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'main_as/main.css' %}"/>
+<style>
+    .btn:focus, .btn, button:focus, button {
+        outline: none !important;
+    }
+</style>
+</head>
+<body style="background-image: url({% static 'image/rrrr.jpg' %}); background-size: cover; background-repeat: no-repeat;">
+{% block content %}
+    {% include 'base.html' %}
+    {#  NAVBAR  #}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 ml-auto my-3">
+                <div class="card" style="width: 20rem;">
+                    <nav id="navbar-example2" class="navbar navbar-dark bg-secondary">
+                        <ul class="nav">
+                            <li class="nav-item mr-5">
+                                <a class="btn btn-outline-success text-light mr-5" href="#menu1">Categories</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-outline-success text-light ml-3" href="#menu">Brand</a>
+                            </li>
+                        </ul>
+                        <ul class="nav-item mt-4 mr-5">
+                            <h3 class="text-center text-light">Biz bilan bog'lanish</h3>
+                            <p class="list-group-item text-center"><a href="https://t.me/Erkin_7333"><i
+                                    class="bi bi-telegram mr-2"> Telegram manzil</i></a></p>
+                            <p class="list-group-item"><a
+                                    href="https://instagram.com/erkin_7333?utm_medium=copy_link"><i
+                                    class="bi bi-instagram mr-2"> Instagram manzil</i></a></p>
+                            <a href="tel: +998974347333" class="list-group-item"><i class="bi bi-telephone-forward"></i>
+                                99897 434 73 33</a>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="d-flex flex-column w-50 mt-3">
+                    {% get_categoriy as categories %}
+                    {% for row in categories %}
+                        <div class="btn-group dropright mt-2">
+                            <button type="button" class="btn btn-outline-success" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                <strong>{{ row.name }}</strong>
+                            </button>
+                            <div class="dropdown-menu  bg-transparent">
+                                {% get_brands as brands %}
+                                {% for brand in brands %}
+                                    <a href="{% url 'main_shop:category_brand' brand.id row.id %}"
+                                       class="btn btn-outline-success text-center d-flex flex-column mt-2"><strong>{{ brand.brand_name }}</strong></a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            {# Karusel   #}
+            <div class="col-lg-7 offset-lg-5 ml-auto mt-3 my-3">
+                <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{% static 'image/not.jpg' %}" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{% static 'image/notebook.jpeg' %}" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{% static 'image/qqq.jpg' %}" class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                <div id="carouselExampleFade1" class="carousel slide carousel-fade mt-4" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{% static 'image/phone.jpeg' %}" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{% static 'image/ee.jpg' %}" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{% static 'image/sam2.jpeg' %}" class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleFade1" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleFade1" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-spy="scroll" data-target="#navbar-example2" data-offset="0">
+        <div class="container mt-4" id="menu1">
+            <div class="d-flex flex-column text-center">
+                <h4 class="text-light"><strong>KATEGORIYALAR</strong></h4>
+                <h3 class="text-light">Bizning maishiy teknikalarni kategoriyalar asosida tanlab xarid qiling</h3>
+            </div>
+            <div class="row">
+                <div class="card-deck">
+                    <div class="card">
+                        <img src="{% static 'image/ee.jpg' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><strong>NOTEBOOK</strong></h5>
+                            <p class="card-text">Notebooklar olamiga xush kelibsiz sotuvda borlarini ko'rish uchun
+                                iltimos
+                                "Ko'rish" tugmasini bosing</p>
+                        </div>
+                        <a href="{% url 'main:notebook' %}" class="btn btn-success">Ko'rish</a>
+                    </div>
+                    <div class="card">
+                        <img src="{% static 'image/ee.jpg' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><strong>SMARTPHONE</strong></h5>
+                            <p class="card-text">Smartphonlar olamiga xush kelibsiz sotuvda borlarini ko'rish uchun
+                                iltimos
+                                "Ko'rish" tugmasini bosing</p>
+                        </div>
+                        <a href="{% url 'main:smartphone' %}" class="btn btn-success">Ko'rish</a>
+                    </div>
+                    <div class="card">
+                        <img src="{% static 'image/ee.jpg' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><strong>TELEVIZOR</strong></h5>
+                            <p class="card-text">Televizorlar olamiga xush kelibsiz sotuvda borlarini ko'rish uchun
+                                iltimos
+                                "Ko'rish" tugmasini bosing</p>
+                        </div>
+
+                        <a href="{% url 'main:televizor' %}" class="btn btn-success">Ko'rish</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-4">
+            <div class="row">
+                <div class="card-deck">
+                    <div class="card">
+                        <img src="{% static 'image/ee.jpg' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><strong>KONDITSANER</strong></h5>
+                            <p class="card-text">Konditsaner olamiga xush kelibsiz sotuvda borlarini ko'rish uchun
+                                iltimos
+                                "Ko'rish" tugmasini bosing</p>
+                        </div>
+                        <a href="{% url 'main:konditsaner' %}" class="btn btn-success">Ko'rish</a>
+                    </div>
+                    <div class="card">
+                        <img src="{% static 'image/ee.jpg' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><strong>MUZLATKICH</strong></h5>
+                            <p class="card-text">Muzlatkich olamiga xush kelibsiz sotuvda borlarini ko'rish uchun
+                                iltimos
+                                "Ko'rish" tugmasini bosing</p>
+                        </div>
+                        <a href="#" class="btn btn-success">Ko'rish</a>
+                    </div>
+                    <div class="card">
+                        <img src="{% static 'image/ee.jpg' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><strong>GAZ PLITA</strong></h5>
+                            <p class="card-text">Gaz plita olamiga xush kelibsiz sotuvda borlarini ko'rish uchun
+                                iltimos
+                                "Ko'rish" tugmasini bosing</p>
+                        </div>
+                        <a href="{% url 'main:gaz' %}" class="btn btn-success">Ko'rish</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-spy="scroll" data-target="#navbar-example2" data-offset="0">
+        <section id="menu" data-stellar-background-ratio="0.5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 text-center mt-2">
+                        <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
+                            <h4 class="text-light"><strong>BRENDLAR</strong></h4>
+                            <h3 class="text-light">Bizning maishiy teknikalarni brendlar asosida tanlab xarid
+                                qiling</h3>
+                        </div>
+                    </div>
+                    {% get_brands as brands %}
+                    {% for brand in brands %}
+                        <div class="col-md-4 col-sm-6">
+                            <!-- MENU THUMB -->
+                            <div class="menu-thumb">
+                                <a href="{% url 'main_shop:categoriya' brand.id %}" class="image-popup "
+                                   title="{{ brand.brand_name }}">
+                                    <img src="{% static 'image/qqq.jpg' %}" class="img-responsive mt-2" alt="">
+                                    <div class="menu-info">
+                                        <div class="menu-item">
+                                            <h3><strong>{{ brand.brand_name }}</strong></h3>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </div>
+    {% include 'footer.html' %}
+{% endblock %}
+
+<script src="{% static 'vendor/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
+<script src="{% static 'main_as/java.js' %}"></script>
+
+
+</body>
+</html>
