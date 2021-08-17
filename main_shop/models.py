@@ -67,3 +67,8 @@ class Adress(models.Model):
     full_name = models.CharField(max_length=100, verbose_name="Ism Familya")
     uy_raqami = models.IntegerField(default=0)
     phone = models.CharField(max_length=20, verbose_name='Telefon raqami')
+
+
+
+
+#https://github.com/erkin7333/erkin_shop/
